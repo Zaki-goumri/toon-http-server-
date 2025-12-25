@@ -5,7 +5,6 @@ import (
 	"time"
 )
 
-// User represents a user in our system
 type User struct {
 	ID        int       `toon:"id"`
 	Name      string    `toon:"name"`
@@ -13,14 +12,12 @@ type User struct {
 	CreatedAt time.Time `toon:"createdAt"`
 }
 
-// UserStore manages users in memory
 type UserStore struct {
 	mu      sync.RWMutex
 	users   map[int]*User
 	nextID  int
 }
 
-// NewUserStore creates a new user store
 func NewUserStore() *UserStore {
 	return &UserStore{
 		users:  make(map[int]*User),
@@ -28,7 +25,6 @@ func NewUserStore() *UserStore {
 	}
 }
 
-// GetAll returns all users
 func (s *UserStore) GetAll() []*User {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
@@ -40,7 +36,6 @@ func (s *UserStore) GetAll() []*User {
 	return users
 }
 
-// Get returns a user by ID
 func (s *UserStore) Get(id int) (*User, bool) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
@@ -49,7 +44,6 @@ func (s *UserStore) Get(id int) (*User, bool) {
 	return user, exists
 }
 
-// Create adds a new user
 func (s *UserStore) Create(user *User) *User {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -62,7 +56,6 @@ func (s *UserStore) Create(user *User) *User {
 	return user
 }
 
-// Update modifies an existing user
 func (s *UserStore) Update(id int, user *User) (*User, bool) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -76,7 +69,6 @@ func (s *UserStore) Update(id int, user *User) (*User, bool) {
 	return user, true
 }
 
-// Delete removes a user
 func (s *UserStore) Delete(id int) bool {
 	s.mu.Lock()
 	defer s.mu.Unlock()
