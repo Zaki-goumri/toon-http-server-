@@ -1,4 +1,4 @@
-package main
+package models
 
 import (
 	"sync"
@@ -6,10 +6,10 @@ import (
 )
 
 type User struct {
-	ID        int       `toon:"id"`
-	Name      string    `toon:"name"`
-	Email     string    `toon:"email"`
-	CreatedAt time.Time `toon:"createdAt"`
+	ID        int       `toon:"id" json:"id"`
+	Name      string    `toon:"name" json:"name"`
+	Email     string    `toon:"email" json:"email"`
+	CreatedAt time.Time `toon:"createdAt" json:"createdAt"`
 }
 
 type UserStore struct {
